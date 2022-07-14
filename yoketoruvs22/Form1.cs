@@ -15,16 +15,19 @@ namespace yoketoruvs22
     {
         const bool isDebug = true;
 
+        const int SpeedMax = 10;
         const int PlayerMax = 1;
         const int EnemyMax = 10;
         const int ItemMax = 10;
         const int ChrMax = PlayerMax + EnemyMax + ItemMax;
         Label[] chrs = new Label[ChrMax];
+        int[] vx = new int[ChrMax];
+        int[] vy = new int[ChrMax];
         const int PlayerIndex = 0;
         const int EnemyIndex = PlayerMax + PlayerIndex;
         const int ItemIndex = EnemyMax + EnemyIndex;
 
-        const string PlayerText = "（・ω・）";
+        const string PlayerText = "(^・ω・^)";
         const string EnemyText = "◆";
         const string ItemText = "★";
 
@@ -112,8 +115,31 @@ namespace yoketoruvs22
         {
             Point spos = MousePosition;
             Point fpos = PointToClient(spos);
-            chrs[0].Left = fpos.X - chrs[0].Width / 2;
-            chrs[0].Top = fpos.Y - chrs[0].Height / 2;
+            chrs[PlayerIndex].Left = fpos.X - chrs[0].Width / 2;
+            chrs[PlayerIndex].Top = fpos.Y - chrs[0].Height / 2;
+
+            for(int i=EnemyIndex;i<ChrMax;i++)
+            {
+                chrs[i].Left += vx[i];
+                chrs[i].Top += vy[i];
+
+                if(ClientSize.Width<chrs[i].Right)
+                {
+                    vx[i] = -Math.Abs(vx[i]);
+                }
+                if(ClientSize.Height<chrs[i].Bottom)
+                {
+                    vy[i] = -Math.Abs(vy[i]);
+                }
+                if(chrs[i].Left<0)
+                {
+                    vx[i] = -Math.Abs(vx[i]);
+                }
+                if(chrs[i].Top<0)
+                {
+                    vy[i] = -Math.Abs(vy[i]);
+                }
+            }
         }
 
         void initProc()
@@ -143,6 +169,8 @@ namespace yoketoruvs22
                     {
                         chrs[i].Left = rand.Next(ClientSize.Width - chrs[i].Width);
                         chrs[i].Top = rand.Next(ClientSize.Height - chrs[i].Height);
+                        vx[i] = rand.Next(-SpeedMax, SpeedMax + 1);
+                        vy[i] = rand.Next(-SpeedMax, SpeedMax + 1);
                     }
 
                     break;
