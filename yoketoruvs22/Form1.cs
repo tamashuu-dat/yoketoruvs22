@@ -100,6 +100,18 @@ namespace yoketoruvs22
                     }
                 }
             }
+
+            if(currentState==State.Game)
+            {
+                UpdateGame();
+            }
+        }
+
+        void UpdateGame()
+        {
+            Point spos = MousePosition;
+            Point fpos = PointToClient(spos);
+            fpos.X=()
         }
 
         void initProc()
@@ -124,6 +136,13 @@ namespace yoketoruvs22
                     startButton.Visible = false;
                     copyrightLabel.Visible = false;
                     highLabel.Visible = false;
+
+                    for(int i=EnemyIndex;i<ChrMax;i++)
+                    {
+                        chrs[i].Left = rand.Next(ClientSize.Width - chrs[i].Width);
+                        chrs[i].Top = rand.Next(ClientSize.Height - chrs[i].Height);
+                    }
+
                     break;
 
                 case State.Gameover:
