@@ -65,6 +65,7 @@ namespace yoketoruvs22
                 {
                     chrs[i].Text = ItemText;
                 }
+                chrs[i].Font = tempLabel.Font;
                 Controls.Add(chrs[i]);
             }
         }
@@ -111,7 +112,8 @@ namespace yoketoruvs22
         {
             Point spos = MousePosition;
             Point fpos = PointToClient(spos);
-            fpos.X=()
+            chrs[0].Left = fpos.X - chrs[0].Width / 2;
+            chrs[0].Top = fpos.Y - chrs[0].Height / 2;
         }
 
         void initProc()
