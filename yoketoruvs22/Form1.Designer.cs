@@ -41,6 +41,7 @@ namespace yoketoruvs22
             this.titlebutton = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tempLabel = new System.Windows.Forms.Label();
+            this.restartButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // titleLabel
@@ -160,12 +161,24 @@ namespace yoketoruvs22
             this.tempLabel.Text = "★";
             this.tempLabel.Visible = false;
             // 
+            // restartButton
+            // 
+            this.restartButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.restartButton.Location = new System.Drawing.Point(552, 272);
+            this.restartButton.Name = "restartButton";
+            this.restartButton.Size = new System.Drawing.Size(160, 91);
+            this.restartButton.TabIndex = 10;
+            this.restartButton.Text = "再挑戦";
+            this.restartButton.UseVisualStyleBackColor = false;
+            this.restartButton.Click += new System.EventHandler(this.restartButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.restartButton);
             this.Controls.Add(this.tempLabel);
             this.Controls.Add(this.titlebutton);
             this.Controls.Add(this.clearLabel);
@@ -197,6 +210,7 @@ namespace yoketoruvs22
         private System.Windows.Forms.Button titlebutton;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label tempLabel;
+        private System.Windows.Forms.Button restartButton;
     }
 }
 

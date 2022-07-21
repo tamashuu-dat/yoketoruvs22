@@ -26,6 +26,7 @@ namespace yoketoruvs22
         const int PlayerIndex = 0;
         const int EnemyIndex = PlayerMax + PlayerIndex;
         const int ItemIndex = EnemyMax + EnemyIndex;
+        const int StartTime = 100;
 
         const string PlayerText = "(・ω・)";
         const string EnemyText = "◆";
@@ -34,6 +35,7 @@ namespace yoketoruvs22
         static Random rand = new Random();
 
         int itemCount;
+        int time;
 
         enum State
         {
@@ -115,12 +117,22 @@ namespace yoketoruvs22
 
         void UpdateGame()
         {
+            time--;
+            timeLabel.Text = $"Time{time:00}" ;
+
+            if (time<=0)
+            {
+                nextState = State.Gameover;
+            }
+
             Point fpos = PointToClient(MousePosition);
             chrs[PlayerIndex].Left = fpos.X - chrs[0].Width / 2;
             chrs[PlayerIndex].Top = fpos.Y - chrs[0].Height / 2;
 
             for(int i=EnemyIndex;i<ChrMax;i++)
             {
+                if (!chrs[i].Visible) continue;
+
                 chrs[i].Left += vx[i];
                 chrs[i].Top += vy[i];
                 
@@ -153,13 +165,17 @@ namespace yoketoruvs22
                     }
                     else//アイテムの当たり判定
                     {
-                        chrs[i].Visible = false;
+                        //chrs[i].Visible = false;
                         itemCount--;
                         if(itemCount<=0)
                         {
                             nextState=State.Clear;
                         }
                         leftLabel.Text = "★" + itemCount;
+
+                        vx[i] = 0;
+                        vy[i] = 0;
+                        chrs[i].Left = 10000;//再挑戦ボタンの影響で、こっちの処理(通常では非推奨)
                     }
                 }
             }
@@ -180,6 +196,7 @@ namespace yoketoruvs22
                     gameOverLabel.Visible = false;
                     titlebutton.Visible = false;
                     clearLabel.Visible = false;
+                    restartButton.Visible = false;
                     break;
 
                 case State.Game:
@@ -197,12 +214,14 @@ namespace yoketoruvs22
                     }
 
                     itemCount = ItemMax;
+                    time = StartTime + 1;
 
                     break;
 
                 case State.Gameover:
                     gameOverLabel.Visible = true;
                     titlebutton.Visible = true;
+                    restartButton.Visible = true;
                     break;
 
                 case State.Clear:
@@ -216,6 +235,18 @@ namespace yoketoruvs22
         private void titlebutton_Click(object sender, EventArgs e)
         {
             nextState = State.Title;
+        }
+
+        private void restartButton_Click(object sender, EventArgs e)
+        {
+            gameOverLabel.Visible = false;
+            titlebutton.Visible = false;
+            restartButton.Visible = false;
+            nextState = State.Game;
+            itemCount = ItemMax;
+            leftLabel.Text = "★" + itemCount;
+            time = StartTime;
+            timeLabel.Text = $"Time{time:00}";
         }
     }
 }
