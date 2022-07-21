@@ -120,11 +120,6 @@ namespace yoketoruvs22
             time--;
             timeLabel.Text = $"Time{time:00}" ;
 
-            if (time<=0)
-            {
-                nextState = State.Gameover;
-            }
-
             Point fpos = PointToClient(MousePosition);
             chrs[PlayerIndex].Left = fpos.X - chrs[0].Width / 2;
             chrs[PlayerIndex].Top = fpos.Y - chrs[0].Height / 2;
@@ -154,7 +149,7 @@ namespace yoketoruvs22
                 }
 
                 //当たり判定
-                if((fpos.X>=chrs[i].Left)
+                if(   (fpos.X>=chrs[i].Left)
                     &&(fpos.X<chrs[i].Right)
                     &&(fpos.Y>=chrs[i].Top)
                     &&(fpos.Y<chrs[i].Bottom))
@@ -178,6 +173,12 @@ namespace yoketoruvs22
                         chrs[i].Left = 10000;//再挑戦ボタンの影響で、こっちの処理(通常では非推奨)
                     }
                 }
+            }
+
+            if (  (time <= 0)
+                &&(nextState==State.None))
+            {
+                nextState = State.Gameover;
             }
         }
 
@@ -244,9 +245,9 @@ namespace yoketoruvs22
             restartButton.Visible = false;
             nextState = State.Game;
             itemCount = ItemMax;
-            leftLabel.Text = "★" + itemCount;
+            leftLabel.Text = "★" + itemCount;//timeLabelの書き方でもよい
             time = StartTime;
-            timeLabel.Text = $"Time{time:00}";
+            timeLabel.Text = $"Time{time:00}";//leftLabelの書き方でもよい
         }
     }
 }
