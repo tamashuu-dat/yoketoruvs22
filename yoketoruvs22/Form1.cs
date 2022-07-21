@@ -27,7 +27,7 @@ namespace yoketoruvs22
         const int EnemyIndex = PlayerMax + PlayerIndex;
         const int ItemIndex = EnemyMax + EnemyIndex;
 
-        const string PlayerText = "(^・ω・^)";
+        const string PlayerText = "(・ω・)";
         const string EnemyText = "◆";
         const string ItemText = "★";
 
@@ -113,8 +113,7 @@ namespace yoketoruvs22
 
         void UpdateGame()
         {
-            Point spos = MousePosition;
-            Point fpos = PointToClient(spos);
+            Point fpos = PointToClient(MousePosition);
             chrs[PlayerIndex].Left = fpos.X - chrs[0].Width / 2;
             chrs[PlayerIndex].Top = fpos.Y - chrs[0].Height / 2;
 
@@ -122,22 +121,31 @@ namespace yoketoruvs22
             {
                 chrs[i].Left += vx[i];
                 chrs[i].Top += vy[i];
-
-                if(ClientSize.Width<chrs[i].Right)
-                {
-                    vx[i] = -Math.Abs(vx[i]);
-                }
-                if(ClientSize.Height<chrs[i].Bottom)
-                {
-                    vy[i] = -Math.Abs(vy[i]);
-                }
+                
                 if(chrs[i].Left<0)
                 {
-                    vx[i] = -Math.Abs(vx[i]);
+                    vx[i] = Math.Abs(vx[i]);
                 }
                 if(chrs[i].Top<0)
                 {
+                    vy[i] = Math.Abs(vy[i]);
+                }
+                if (ClientSize.Width < chrs[i].Right)
+                {
+                    vx[i] = -Math.Abs(vx[i]);
+                }
+                if (ClientSize.Height < chrs[i].Bottom)
+                {
                     vy[i] = -Math.Abs(vy[i]);
+                }
+
+                //当たり判定
+                if((fpos.X>=chrs[i].Left)
+                    &&(fpos.X<chrs[i].Right)
+                    &&(fpos.Y>=chrs[i].Top)
+                    &&(fpos.Y<chrs[i].Bottom))
+                {
+                    MessageBox.Show("重なったよ!!");
                 }
             }
         }
