@@ -113,6 +113,7 @@ namespace yoketoruvs22
             if(currentState==State.Game)
             {
                 UpdateGame();
+                leftLabel.Text = "★" + itemCount;
             }
         }
 
@@ -161,7 +162,7 @@ namespace yoketoruvs22
                     }
                     else//アイテムの当たり判定
                     {
-                        //chrs[i].Visible = false;
+                        chrs[i].Visible = false;
                         itemCount--;
                         if(itemCount<=0)
                         {
@@ -169,9 +170,9 @@ namespace yoketoruvs22
                         }
                         leftLabel.Text = "★" + itemCount;
 
-                        vx[i] = 0;
+                        /*vx[i] = 0;
                         vy[i] = 0;
-                        chrs[i].Left = 10000;//再挑戦ボタンの影響で、こっちの処理(通常では非推奨)
+                        chrs[i].Left = 10000;*/
                     }
                 }
             }
@@ -213,10 +214,12 @@ namespace yoketoruvs22
                         chrs[i].Top = rand.Next(ClientSize.Height - chrs[i].Height);
                         vx[i] = rand.Next(-SpeedMax, SpeedMax + 1);
                         vy[i] = rand.Next(-SpeedMax, SpeedMax + 1);
+                        chrs[i].Visible = true;
                     }
 
                     itemCount = ItemMax;
                     time = StartTime + 1;
+                    leftLabel.Text = "★" + itemCount;
 
                     break;
 
