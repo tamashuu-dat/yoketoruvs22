@@ -94,9 +94,9 @@ namespace yoketoruvs22
             this.highLabel.Font = new System.Drawing.Font("AR DARLING", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.highLabel.Location = new System.Drawing.Point(303, 187);
             this.highLabel.Name = "highLabel";
-            this.highLabel.Size = new System.Drawing.Size(190, 30);
+            this.highLabel.Size = new System.Drawing.Size(154, 30);
             this.highLabel.TabIndex = 4;
-            this.highLabel.Text = "High Score 100";
+            this.highLabel.Text = "HighScore 0";
             // 
             // leftLabel
             // 
@@ -125,7 +125,7 @@ namespace yoketoruvs22
             this.clearLabel.AutoSize = true;
             this.clearLabel.Font = new System.Drawing.Font("Yu Gothic UI", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.clearLabel.ForeColor = System.Drawing.Color.Red;
-            this.clearLabel.Location = new System.Drawing.Point(314, 189);
+            this.clearLabel.Location = new System.Drawing.Point(315, 104);
             this.clearLabel.Name = "clearLabel";
             this.clearLabel.Size = new System.Drawing.Size(170, 65);
             this.clearLabel.TabIndex = 7;
